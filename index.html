@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervisório IoT - Monitoramento de Silos</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>AgroSilo IoT — Unidade 01</h1>
+      <p class="subtitle">Telemetria MQTT via HiveMQ Broker</p>
+    </div>
+    <span id="conn-status" class="badge">Desconectado</span>
+  </header>
+
+  <div id="alert-banner" class="alert-banner">
+    ⚠️ ALERTA CRÍTICO NO SILO: Temperatura (&gt;30°C) ou Umidade (&gt;70%) fora dos limites seguros!
+  </div>
+
+  <main class="dashboard">
+    <!-- Card Temperatura -->
+    <section id="card-temp" class="card">
+      <h2>Temperatura Interna</h2>
+      <div class="value" id="temp-val">-- °C</div>
+      <div class="status-text">Limite seguro: até 30.0 °C</div>
+    </section>
+
+    <!-- Card Umidade -->
+    <section id="card-umid" class="card">
+      <h2>Umidade Relativa</h2>
+      <div class="value" id="umid-val">-- %</div>
+      <div class="status-text">Limite seguro: até 70.0 %</div>
+    </section>
+
+    <!-- Card Controle Exaustor -->
+    <section class="card">
+      <h2>Controle do Exaustor</h2>
+      <div class="value exaustor-status" id="exaustor-val">--</div>
+      <div class="status-text" id="modo-val">Modo de Operação: --</div>
+      
+      <div class="controls">
+        <button class="btn-on" onclick="enviarComando('ON')">Ligar Exaustor (Manual)</button>
+        <button class="btn-off" onclick="enviarComando('OFF')">Desligar Exaustor (Manual)</button>
+        <button class="btn-auto" onclick="enviarComando('AUTO')">Ativar Regra Automática</button>
+      </div>
+    </section>
+  </main>
+
+  <section class="log-box" id="log-box">
+    <div>[SISTEMA] Iniciando painel supervisório...</div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
